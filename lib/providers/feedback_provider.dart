@@ -66,7 +66,7 @@ class FeedBackProvider extends ChangeNotifier{
 
       service.devices = device;
 
-      Provider.of<SocketProvider>(context, listen: false).finalizeService(
+      context.read<SocketProvider>().finalizeService(
                             '621c19019cef936ea47c9645',
                             service.assignedTo.id,
                             service,

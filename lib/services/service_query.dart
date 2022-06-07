@@ -9,7 +9,7 @@ import 'package:app/services/services.dart';
 
 class ServiceQuery extends ChangeNotifier{
 
-  final String _baseUrl  = 'https://sios-server.herokuapp.com/api';
+  final String _baseUrl  = 'http://10.1.41.40:4000/api';
 
   ServiceResponse? serviceResponse;
   
@@ -20,7 +20,7 @@ class ServiceQuery extends ChangeNotifier{
   Future getService (String idService)async{
     final token = await AuthService.getToken();
     // print('token : $token');
-    final resp = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/services/$idService'),headers: {
+    final resp = await http.get(Uri.parse('http://10.1.41.40:4000/api/services/$idService'),headers: {
     // final resp = await http.get(Uri.parse('http://10.1.25.40:4000/api/services/$idService'),headers: {
       'authorization': 'Bearer $token'
     });

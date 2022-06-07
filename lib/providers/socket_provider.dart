@@ -31,7 +31,7 @@ class SocketProvider extends ChangeNotifier{
 
     final token = await AuthService.getToken();
 
-    _socket = io.io('https://sios-server.herokuapp.com/',
+    _socket = io.io('http://10.1.41.40:4000/',
     // _socket = io.io('http://10.1.25.40:4000/',
 
       io.OptionBuilder()
@@ -115,7 +115,8 @@ class SocketProvider extends ChangeNotifier{
         'feedback': service.feedback,
         'description': service.description,
         'solution': service.solution,
-        'device': service.device
+        'device': service.device,
+        
       }
     });
     

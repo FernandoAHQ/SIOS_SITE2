@@ -14,7 +14,7 @@ class LogService extends ChangeNotifier{
 
   
   Future getLogSearch(String query) async{
-    final jsonData = await http.get(Uri.parse('https://sios-server.herokuapp.com/api/search/$query'));
+    final jsonData = await http.get(Uri.parse('http://10.1.41.40:4000/api/search/$query'));
     return logResponse = LogResponse.fromJson(jsonData.body);
   }
   
