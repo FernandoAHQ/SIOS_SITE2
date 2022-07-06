@@ -6,6 +6,7 @@ import 'package:app/routes/router.dart';
 import 'package:app/screens/log_screen.dart';
 import 'package:app/services/auth_service.dart';
 import 'package:app/services/log_service.dart';
+import 'package:app/services/ranking_service.dart';
 import 'package:app/services/service_query.dart';
 import 'package:app/theme/app_theme.dart';
 
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=>AuthService()),
@@ -25,6 +29,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=>UsersSiteProvider()),
         ChangeNotifierProvider(create: (_)=>LogService()),
         ChangeNotifierProvider(create: (_)=>LogSearchProvider()),
+        ChangeNotifierProvider(create: (_)=>RankingService())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -35,4 +40,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

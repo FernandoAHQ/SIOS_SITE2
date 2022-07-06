@@ -1,9 +1,12 @@
 import 'package:app/providers/providers.dart';
+import 'package:app/services/constants.dart';
+import 'package:app/services/ranking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:app/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 
 import '../models/models.dart';
+import '../models/periods.dart';
 
 class RankingScreen extends StatelessWidget {
   const RankingScreen({Key? key}) : super(key: key);
@@ -12,7 +15,7 @@ class RankingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    final prov = Provider.of<UsersSiteProvider>(context);
+    final prov = Provider.of<RankingService>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,12 +25,13 @@ class RankingScreen extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: FutureBuilder(
-        future: prov.getSiteUsers(),
+        future: prov.getRanking(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
             return const Expanded(child: Center(child: CircularProgressIndicator(),));
           }
-          List<User> users = snapshot.data as List<User>;
+          Period periodo = snapshot.data as Period;
+          List<Ranked> users = periodo.ranking;
 
           return  Column(
           children: [
@@ -63,7 +67,7 @@ class _TopUser extends StatelessWidget {
 
   final Size size;
   final int porcentaje;
-  final User user;
+  final Ranked user;
 
   @override
   Widget build(BuildContext context) {
@@ -80,11 +84,18 @@ class _TopUser extends StatelessWidget {
               child: Image(
                   fit: BoxFit.cover,
                   image:  NetworkImage(
-                      user.image)),
+                      imgUserURL + user.image)),
             ),
           ),
            Text(
             user.name,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+          ),
+                 Text(
+            user.points.toString() + ' puntos',
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
@@ -98,7 +109,7 @@ class _TopUser extends StatelessWidget {
 class _UserList extends StatelessWidget {
    _UserList({required this.listUsers});
 
-  final List<User> listUsers;
+  final List<Ranked> listUsers;
 
   @override
   Widget build(BuildContext context) {
@@ -116,15 +127,25 @@ class _UserList extends StatelessWidget {
             leading: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child:  Image(
-                  image: NetworkImage(listUsers[index + 3].image),
+                  image: NetworkImage(imgUserURL + listUsers[index + 3].image),
                   fit: BoxFit.cover,
                 )),
-            title: Text(
-              (index + 3).toString() + " \t " + listUsers[index + 3].name,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Text(
+                  listUsers[index + 3].name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                
+                            ),
+                ),
+                Text('No. ' + (index + 3).toString()),
+              ],
             ),
-            trailing: const Text('1000 puntos'),
+            trailing:  Text('${listUsers[index + 3].points} puntos'),
           );
         },
       ),

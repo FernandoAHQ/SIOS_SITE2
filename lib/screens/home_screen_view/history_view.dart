@@ -43,7 +43,7 @@ class _HistoryCard extends StatelessWidget {
     var parsedDate = DateFormat('KK:mm:ss').format(service.createdAt);
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, 'details'),
+      onTap: () => Navigator.pushNamed(context, 'details', arguments: service.id),
       child: Container(
         height: size.height * .15,
         padding: const EdgeInsets.all(10),

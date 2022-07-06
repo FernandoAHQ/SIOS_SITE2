@@ -1,3 +1,4 @@
+import 'package:app/services/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,11 +36,11 @@ class DrawerMenu extends StatelessWidget {
             title: const Text('Bitacora de Servicios'),
           ),
           const Divider(),
-          ListTile(
-            onTap: () => Navigator.pushNamed(context, 'ratings'),
-            leading: const Icon(Icons.thumb_up),
-            title: const Text('Mis Calificaciones'),
-          ),
+          // ListTile(
+          //   onTap: () => Navigator.pushNamed(context, 'ratings'),
+          //   leading: const Icon(Icons.thumb_up),
+          //   title: const Text('Mis Calificaciones'),
+          // ),
           Expanded(child: Container(),),
           ListTile(
             onTap: () async {
@@ -99,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                           width: size.height * .08,
                           fit: BoxFit.cover,
                           placeholder: const AssetImage('assets/loading.gif'),
-                          image: NetworkImage(user.image)),
+                          image: NetworkImage(imgUserURL+ user.image)),
                     ),
                   ),
                 ),

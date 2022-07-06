@@ -1,8 +1,11 @@
+import 'package:app/services/ranking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/providers/providers.dart';
 import 'package:intl/intl.dart';
 import 'package:app/widgets/widgets.dart';
+
+import '../../models/periods.dart';
 
 
 class TodayView extends StatelessWidget {
@@ -11,6 +14,8 @@ class TodayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    
+   
     final socketprov = Provider.of<SocketProvider>(context);
 
     return ListView.builder(
@@ -32,7 +37,7 @@ class _ReportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var parsedDate = DateFormat('KK:mm:ss').format(DateTime.parse(service['report']['createdAt']));
+    var parsedDate = DateFormat('KK:mm').format(DateTime.parse(service['report']['createdAt']));
 
     final size = MediaQuery.of(context).size;
 

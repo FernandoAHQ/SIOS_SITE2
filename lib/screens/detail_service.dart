@@ -25,7 +25,7 @@ class DetailService extends StatelessWidget {
     return FutureBuilder(
       future: serviceProv.getService(idreport),
       builder: (context, snapshot) {
-
+        print(idreport);
         if ( !snapshot.hasData ) {
           return const Scaffold(
           body: Center(
@@ -34,6 +34,8 @@ class DetailService extends StatelessWidget {
         );
         }
         final Service service = snapshot.data as Service;
+
+        print("Service ID: " + service.id);
         
       var parsedDate = DateFormat('KK:mm').format(service.createdAt);
 
@@ -116,6 +118,8 @@ class DetailService extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(service.report.description),
                         ),
+
+                 
                         // Row(
                         //   children: const[
                         //      Text(

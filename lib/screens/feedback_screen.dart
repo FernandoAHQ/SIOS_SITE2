@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:app/models/service.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import 'package:app/providers/providers.dart';
@@ -12,7 +15,8 @@ class FeedbackScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    
+    XFile? image;
+
 
     final feedbackProvider = Provider.of<FeedBackProvider>(context);
     
@@ -112,12 +116,17 @@ class FeedbackScreen extends StatelessWidget {
                   //   }
                     
                   // ),
+                  
+                  IconButton(onPressed: ()=>pickImage(feedbackProvider), 
+                  color: feedbackProvider.isFile? Color.fromARGB(255, 0, 255, 8) : Colors.grey,
+                  icon: const Icon(Icons.photo),),
+
                   Center(
                     child: MaterialButton(
                       onPressed: ()=>{
                         context.read<FeedBackProvider>().finalize(arguments, context),
                         Navigator.pop(context)}, 
-                      color: Colors.green, 
+                      color: Color.fromARGB(255, 0, 65, 119), 
                       child: const Icon(Icons.send, color: Colors.white),
                       )
                       ),
@@ -133,6 +142,13 @@ class FeedbackScreen extends StatelessWidget {
     
   }
 }
+
+Future pickImage(FeedBackProvider prov) async {
+  XFile img = (await ImagePicker().pickImage(source: ImageSource.camera))!;
+  prov.file = File(img.path);
+  prov.fileExists(true);
+}
+
 
 class _CustomFormFields extends StatelessWidget {
 
